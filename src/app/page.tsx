@@ -6,12 +6,19 @@ import Image from "next/image";
 
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+
+// Define your navigation items in an array for clarity.
+const navItems = [
+  { title: "Home", href: "/" },
+  { title: "Strategies", href: "/strategies" },
+  { title: "Portfolio", href: "/portfolio" },
+  { title: "Contact", href: "/contact" },
+];
 
 export default function Home() {
   return (
@@ -25,18 +32,15 @@ export default function Home() {
         </Link>
         <NavigationMenu>
           <NavigationMenuList>
-            {[
-              { title: "Home", href: "/" },
-              { title: "Strategies", href: "/strategies" },
-              { title: "Portfolio", href: "/portfolio" },
-              { title: "Contact", href: "/contact" },
-            ].map(({ title, href }) => (
+            {navItems.map(({ title, href }) => (
               <NavigationMenuItem key={title}>
-                <Link href={href} legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    {title}
-                  </NavigationMenuLink>
-                </Link>
+                {/* Use asChild to render the Next Link inside the NavigationMenuLink */}
+                <NavigationMenuLink
+                  asChild
+                  className={navigationMenuTriggerStyle()}
+                >
+                  <Link href={href}>{title}</Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
             ))}
           </NavigationMenuList>
